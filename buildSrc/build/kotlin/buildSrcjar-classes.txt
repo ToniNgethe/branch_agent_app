@@ -1,0 +1,1 @@
+/Users/toni/AndroidStudioProjects/Branchcustomerservice/buildSrc/build/classes/kotlin/main/Configs.class:/Users/toni/AndroidStudioProjects/Branchcustomerservice/buildSrc/build/classes/kotlin/main/Dependencies.class:/Users/toni/AndroidStudioProjects/Branchcustomerservice/buildSrc/build/classes/kotlin/main/Versions.class
