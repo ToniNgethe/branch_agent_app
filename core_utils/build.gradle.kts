@@ -55,5 +55,7 @@ dependencies {
     implementation(Dependencies.hilt)
     kapt(Dependencies.hiltCompiler)
 
+    implementation(Dependencies.coroutinesCore)
+
     implementation(project(":core-resources" ))
 }

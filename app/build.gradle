@@ -61,6 +61,7 @@ dependencies {
     kapt Dependencies.hiltCompiler
     implementation Dependencies.hiltNavigationCompose
 
+    implementation project(path: ":features:feature_splash")
     implementation project(path: ":core-resources")
     implementation project(path: ":core_utils")
 }

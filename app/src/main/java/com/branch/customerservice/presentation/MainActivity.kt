@@ -15,8 +15,11 @@ import com.branch.core_utils.designs.BranchCustomerAppTheme
 import com.branch.core_utils.designs.DarkPrimary
 import com.branch.core_utils.navigation.Routes
 import com.branch.core_utils.navigation.UiEvent
+import com.branch.feature_splash.presentation.SplashPage
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,17 +42,15 @@ class MainActivity : ComponentActivity() {
                 Surface(color = MaterialTheme.colors.background) {
                     NavHost(navController = navController, startDestination = Routes.splashPage) {
                         composable(Routes.splashPage) {
-//                            SplashPage { event ->
-//                                if (event is UiEvent.OnNavigate) {
-//                                    navController.navigate(event.route)
-//                                }
-//                            }
-                        //    LoginPage()
-                            ChatMessagePage()
+                            SplashPage { event ->
+                                if (event is UiEvent.OnNavigate) {
+                                    navController.navigate(event.route)
+                                }
+                            }
                         }
 
                         composable(Routes.authPage) {
-
+                            LoginPage()
                         }
 
                         composable(Routes.chatsPage) {
@@ -57,7 +58,7 @@ class MainActivity : ComponentActivity() {
                         }
 
                         composable(Routes.chatMessagesPage) {
-
+                            ChatMessagePage()
                         }
                     }
                 }

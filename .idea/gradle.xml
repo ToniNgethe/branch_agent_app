@@ -18,6 +18,7 @@
             <option value="$PROJECT_DIR$/core_utils" />
             <option value="$PROJECT_DIR$/features" />
             <option value="$PROJECT_DIR$/features/feature_auth" />
+            <option value="$PROJECT_DIR$/features/feature_splash" />
           </set>
         </option>
       </GradleProjectSettings>
