@@ -5,6 +5,7 @@ object Versions {
     internal const val RETROFIT_KOTLIN_SERIALIZATION = "0.8.0"
     internal const val KOTLIN_SERIALIZATION_JSON = "1.3.2"
     const val COMPOSE_COMPILER = "1.3.0"
+    internal const val room = "2.4.2"
     internal const val dataStore = "1.0.0"
 }
 
@@ -58,6 +59,11 @@ object Dependencies {
 
     // data store
     const val dataStore = "androidx.datastore:datastore-preferences:${Versions.dataStore}"
+
+    // room
+    const val roomKtx = "androidx.room:room-ktx:${Versions.room}"
+    const val roomKRuntime = "androidx.room:room-ktx:${Versions.room}"
+    const val roomCompiler = "androidx.room:room-compiler:${Versions.room}"
 
     // test
     const val coroutinesTest =

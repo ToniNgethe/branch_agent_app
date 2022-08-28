@@ -43,4 +43,9 @@ dependencies {
 
     androidTestImplementation(Dependencies.coroutinesTest)
     androidTestImplementation(Dependencies.googleTruth)
+
+    implementation(Dependencies.roomKtx)
+    kapt(Dependencies.roomCompiler)
+    implementation(Dependencies.roomKRuntime)
+    implementation(Dependencies.dataStore)
 }

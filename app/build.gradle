@@ -63,6 +63,7 @@ dependencies {
 
     implementation project(path: ":features:feature_splash")
     implementation project(path: ":features:feature_auth")
+    implementation project(path: ":features:feature_chats")
     implementation project(path: ":core-resources")
     implementation project(path: ":core_utils")
 }

@@ -1,13 +1,17 @@
-package com.branch.customerservice.presentation
+package com.branch.feature_chats.presentation.chats
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -19,12 +23,16 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.branch.core_utils.designs.Ascent
 import com.branch.core_utils.designs.BranchCustomerAppTheme
+import com.branch.feature_chats.domain.models.Chat
+import dagger.hilt.android.lifecycle.HiltViewModel
 
 @Composable
-fun ChatsPage(modifier: Modifier = Modifier) {
+fun ChatsPage(modifier: Modifier = Modifier, viewModel: ChatVm = hiltViewModel()) {
     BranchCustomerAppTheme {
+        val chatUiState = viewModel.chatUiState.collectAsState()
         Box {
             Column(
                 modifier = Modifier
@@ -39,19 +47,46 @@ fun ChatsPage(modifier: Modifier = Modifier) {
 
                 Divider(thickness = 1.dp)
                 Spacer(modifier = Modifier.height(10.dp))
-                LazyColumn(
-                    verticalArrangement = Arrangement.spacedBy(20.dp),
-                    contentPadding = PaddingValues(10.dp)
-                ) {
-                    items(15) { index ->
-                        ChatsItem(
-                            modifier = modifier,
-                            sender = "John Does",
-                            message = "Hi there, i have a query regarding my message Hi there, i have a query regarding my message egarding my message",
-                            time = "3rd, Jun 2020 "
+
+                // loading
+                if (chatUiState.value.isLoading) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .fillMaxHeight(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        CircularProgressIndicator(
+                            modifier = Modifier
+                                .height(40.dp)
+                                .width(40.dp)
                         )
                     }
                 }
+
+                if (chatUiState.value.errorMessage != null) Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(text = chatUiState.value.errorMessage ?: "")
+                }
+
+                if (chatUiState.value.chats.isNotEmpty()) {
+                    val chats = chatUiState.value.chats
+                    LazyColumn(
+                        verticalArrangement = Arrangement.spacedBy(20.dp),
+                        contentPadding = PaddingValues(10.dp)
+                    ) {
+                        items(items = chats, key = { listItem -> listItem.id }) { chat ->
+                            ChatsItem(
+                                modifier = modifier, chat
+                            )
+                        }
+                    }
+                }
+
 
             }
         }
@@ -60,7 +95,7 @@ fun ChatsPage(modifier: Modifier = Modifier) {
 
 
 @Composable
-fun ChatsItem(modifier: Modifier, sender: String, message: String, time: String) {
+fun ChatsItem(modifier: Modifier, chat: Chat) {
     Row {
         Box(
             contentAlignment = Alignment.Center,
@@ -70,11 +105,13 @@ fun ChatsItem(modifier: Modifier, sender: String, message: String, time: String)
                 .background(Ascent)
                 .fillMaxHeight()
         ) {
-            Text(
-                text = sender[0].toString(), textAlign = TextAlign.Center, style = TextStyle(
-                    fontSize = 20.sp, color = MaterialTheme.colors.onSurface
+            chat.userId?.get(0)?.let {
+                Text(
+                    text = it.toString(), textAlign = TextAlign.Center, style = TextStyle(
+                        fontSize = 20.sp, color = MaterialTheme.colors.onSurface
+                    )
                 )
-            )
+            }
         }
         Spacer(modifier = Modifier.width(10.dp))
 
@@ -82,18 +119,18 @@ fun ChatsItem(modifier: Modifier, sender: String, message: String, time: String)
             Row {
                 Text(
                     modifier = Modifier.weight(1f),
-                    text = sender,
+                    text = chat.userId ?: "",
                     style = MaterialTheme.typography.h2.copy(color = MaterialTheme.colors.onSurface)
                 )
                 Text(
-                    text = time, style = MaterialTheme.typography.h3.copy(
+                    text = chat.timeStamp ?: "", style = MaterialTheme.typography.h3.copy(
                         color = Color.LightGray, fontSize = 14.sp
                     )
                 )
             }
             Spacer(modifier = Modifier.height(6.dp))
             Text(
-                text = message,
+                text = chat.latestMessage ?: "",
                 style = MaterialTheme.typography.h3.copy(color = Color.Gray, fontSize = 14.sp),
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis

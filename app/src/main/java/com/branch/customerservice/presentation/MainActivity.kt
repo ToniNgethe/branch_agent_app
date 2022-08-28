@@ -15,6 +15,7 @@ import com.branch.core_utils.designs.BranchCustomerAppTheme
 import com.branch.core_utils.designs.DarkPrimary
 import com.branch.core_utils.navigation.Routes
 import com.branch.core_utils.navigation.UiEvent
+import com.branch.feature_chats.presentation.chats.ChatsPage
 import com.branch.feature_splash.presentation.SplashPage
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dagger.hilt.android.AndroidEntryPoint

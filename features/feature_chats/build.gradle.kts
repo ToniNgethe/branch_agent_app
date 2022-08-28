@@ -1,15 +1,18 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
+    id("dagger.hilt.android.plugin")
+    id("org.jetbrains.kotlin.plugin.serialization")
 }
 
 android {
     namespace = "com.branch.feature_chats"
-    compileSdk = 32
+    compileSdk = Configs.compileSdk
 
     defaultConfig {
-        minSdk = 24
-        targetSdk = 32
+        minSdk = Configs.minSdk
+        targetSdk = Configs.targetSdk
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -19,8 +22,7 @@ android {
         release {
             isMinifyEnabled = false
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )
         }
     }
@@ -31,14 +33,35 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    composeOptions {
+        kotlinCompilerExtensionVersion = Versions.COMPOSE_COMPILER
+    }
+    buildFeatures {
+        compose = true
+    }
 }
 
 dependencies {
+    implementation(Dependencies.ktxCore)
+    implementation(Dependencies.composeUi)
+    implementation(Dependencies.composeToolingPreview)
+    implementation(Dependencies.composeMaterial)
+    implementation(project(mapOf("path" to ":core_network")))
+    debugImplementation(Dependencies.composeTooling)
+    debugImplementation(Dependencies.activityCompose)
 
-    implementation("androidx.core:core-ktx:1.7.0")
-    implementation("androidx.appcompat:appcompat:1.5.0")
-    implementation("com.google.android.material:material:1.6.1")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.3")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+    implementation(Dependencies.hiltNavigationCompose)
+    implementation(Dependencies.hilt)
+    kapt(Dependencies.hiltCompiler)
+
+    implementation(Dependencies.composeViewModel)
+    implementation(Dependencies.coroutinesCore)
+    implementation(Dependencies.lifecycleRuntime)
+
+    implementation(project(mapOf("path" to ":core_utils")))
+    implementation(project(mapOf("path" to ":core_database")))
+    implementation(project(":core-resources"))
+
+    implementation(Dependencies.kotlinSerializationJson)
+    implementation(Dependencies.retrofit)
 }
