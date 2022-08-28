@@ -3,7 +3,6 @@ package com.branch.core_database.di
 import android.content.Context
 import com.branch.core_database.data.AppDataStoreImpl
 import com.branch.core_database.domain.AppDataStore
-import com.branch.core_utils.utils.AppDispatchers
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,8 +17,7 @@ object DataBaseModule {
     @Singleton
     @Provides
     fun provideDataStore(
-        @ApplicationContext context: Context,
-        appDispatchers: AppDispatchers
-    ): AppDataStore = AppDataStoreImpl(context, appDispatchers)
+        @ApplicationContext context: Context
+    ): AppDataStore = AppDataStoreImpl(context)
 
 }

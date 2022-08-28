@@ -1,5 +1,8 @@
 package com.branch.core_database.domain
 
+import kotlinx.coroutines.flow.Flow
+
 interface AppDataStore {
-    var token: String?
+    suspend fun saveToken( token:String )
+    fun getToken( ) : Flow<String?>
 }

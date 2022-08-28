@@ -7,6 +7,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,6 +21,7 @@ import com.branch.core_utils.designs.Ascent
 import com.branch.core_utils.designs.BranchCustomerAppTheme
 import com.branch.core_utils.navigation.Routes
 import com.branch.core_utils.navigation.UiEvent
+import kotlinx.coroutines.delay
 
 @Composable
 fun SplashPage(
@@ -29,14 +31,15 @@ fun SplashPage(
 ) {
 
     val state = viewModel.splashScreenUiState.collectAsState()
-
-    LaunchedEffect(key1 = state) {
+    LaunchedEffect(Unit) {
+        delay(1000)
         if (state.value.userIsLoggedIn == true) {
             onNavigate.invoke(UiEvent.OnNavigate(Routes.chatsPage))
         } else {
             onNavigate.invoke(UiEvent.OnNavigate(Routes.authPage))
         }
     }
+
 
     BranchCustomerAppTheme {
         Column(

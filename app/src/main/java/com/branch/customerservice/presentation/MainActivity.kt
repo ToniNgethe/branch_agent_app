@@ -50,11 +50,15 @@ class MainActivity : ComponentActivity() {
                         }
 
                         composable(Routes.authPage) {
-                            LoginPage()
+                            LoginPage { event ->
+                                if (event is UiEvent.OnNavigate) {
+                                    navController.navigate(event.route)
+                                }
+                            }
                         }
 
                         composable(Routes.chatsPage) {
-
+                            ChatsPage()
                         }
 
                         composable(Routes.chatMessagesPage) {

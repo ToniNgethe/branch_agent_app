@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.branch.core_network"
+    namespace = "com.branch.feature_auth"
     compileSdk = Configs.compileSdk
 
     defaultConfig {
@@ -19,11 +19,7 @@ android {
     }
 
     buildTypes {
-        debug {
-            buildConfigField("String", "BASE_URL", "\"https://android-messaging.branch.co/api/\"")
-        }
         release {
-            buildConfigField("String", "BASE_URL", "\"https://android-messaging.branch.co/api/\"")
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
@@ -37,21 +33,35 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    composeOptions {
+        kotlinCompilerExtensionVersion = Versions.COMPOSE_COMPILER
+    }
+    buildFeatures {
+        compose = true
+    }
 }
 
 dependencies {
-
     implementation(Dependencies.ktxCore)
-    implementation(Dependencies.appCombat)
+    implementation(Dependencies.composeUi)
+    implementation(Dependencies.composeToolingPreview)
+    implementation(Dependencies.composeMaterial)
+    implementation(project(mapOf("path" to ":core_network")))
+    debugImplementation(Dependencies.composeTooling)
+    debugImplementation(Dependencies.activityCompose)
 
-    implementation(Dependencies.retrofit)
-    implementation(Dependencies.loggingInterceptor)
-    implementation(Dependencies.retrofitCoroutineAdapter)
-    implementation(Dependencies.kotlinSerializationJson)
-    implementation(Dependencies.retrofitKotlinSerialization)
-
+    implementation(Dependencies.hiltNavigationCompose)
     implementation(Dependencies.hilt)
+    kapt(Dependencies.hiltCompiler)
+
+    implementation(Dependencies.composeViewModel)
+    implementation(Dependencies.coroutinesCore)
+    implementation(Dependencies.lifecycleRuntime)
+
     implementation(project(mapOf("path" to ":core_utils")))
     implementation(project(mapOf("path" to ":core_database")))
-    kapt(Dependencies.hiltCompiler)
+    implementation(project(":core-resources"))
+
+    implementation(Dependencies.kotlinSerializationJson)
+    implementation(Dependencies.retrofit)
 }
