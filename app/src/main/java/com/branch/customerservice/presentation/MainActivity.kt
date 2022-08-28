@@ -45,7 +45,7 @@ class MainActivity : ComponentActivity() {
 //                                }
 //                            }
                         //    LoginPage()
-                            ChatsPage()
+                            ChatMessagePage()
                         }
 
                         composable(Routes.authPage) {

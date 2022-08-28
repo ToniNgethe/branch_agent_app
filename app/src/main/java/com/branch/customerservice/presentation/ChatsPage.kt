@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -31,11 +32,13 @@ fun ChatsPage(modifier: Modifier = Modifier) {
                     .fillMaxSize()
             ) {
                 Text(
-                    modifier = Modifier.padding(10.dp),
+                    modifier = Modifier.padding(bottom = 10.dp, top = 16.dp, start = 10.dp),
                     text = stringResource(com.branch.core_resources.R.string.chat),
                     style = MaterialTheme.typography.h1.copy(fontSize = 30.sp)
                 )
 
+                Divider(thickness = 1.dp)
+                Spacer(modifier = Modifier.height(10.dp))
                 LazyColumn(
                     verticalArrangement = Arrangement.spacedBy(20.dp),
                     contentPadding = PaddingValues(10.dp)
@@ -44,7 +47,7 @@ fun ChatsPage(modifier: Modifier = Modifier) {
                         ChatsItem(
                             modifier = modifier,
                             sender = "John Does",
-                            message = "Hi there, i have a query regarding my message Hi there, i have a query regarding my message",
+                            message = "Hi there, i have a query regarding my message Hi there, i have a query regarding my message egarding my message",
                             time = "3rd, Jun 2020 "
                         )
                     }
