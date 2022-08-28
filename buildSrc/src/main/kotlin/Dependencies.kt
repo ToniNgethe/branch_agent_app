@@ -41,4 +41,6 @@ object Dependencies {
     const val kotlinSerializationJson =
         "org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.KOTLIN_SERIALIZATION_JSON}"
 
+    // ui
+    const val accompanist = "com.google.accompanist:accompanist-systemuicontroller:0.17.0"
 }

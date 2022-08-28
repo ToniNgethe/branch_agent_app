@@ -54,6 +54,7 @@ dependencies {
     implementation(Dependencies.composeToolingPreview)
     implementation(Dependencies.composeMaterial)
     debugImplementation(Dependencies.composeTooling)
+    debugImplementation(Dependencies.accompanist)
 
     //Dagger - Hilt
     implementation Dependencies.hilt
@@ -61,5 +62,5 @@ dependencies {
     implementation Dependencies.hiltNavigationCompose
 
     implementation project(path: ":core-resources")
-    implementation project(path: ":core_network")
+    implementation project(path: ":core_utils")
 }
