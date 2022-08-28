@@ -44,7 +44,8 @@ class MainActivity : ComponentActivity() {
 //                                    navController.navigate(event.route)
 //                                }
 //                            }
-                            LoginPage()
+                        //    LoginPage()
+                            ChatsPage()
                         }
 
                         composable(Routes.authPage) {
