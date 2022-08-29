@@ -8,5 +8,10 @@ import kotlinx.coroutines.flow.Flow
 interface ChatRepository {
     suspend fun getChats(): ResponseState<String>
     fun listenForChatsUpdates(): Flow<List<Chat>>
-    fun getMessagesByThreadId( threadId: String ): Flow<List<Message>>
+    fun getMessagesByThreadId(threadId: String): Flow<List<Message>>
+    suspend fun createMessage(
+        threadId: String,
+        message: String,
+        agentId: String
+    ): ResponseState<String>
 }

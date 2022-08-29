@@ -6,5 +6,6 @@ data class Chat(
     val latestMessage: String?,
     val agentId: String?,
     val timeStamp: String?,
+    val oTimeStamp: String?,
     val threadId: Int?
 )

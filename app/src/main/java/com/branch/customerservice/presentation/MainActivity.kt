@@ -37,8 +37,8 @@ class MainActivity : ComponentActivity() {
                     systemUiController.setSystemBarsColor(
                         color = Color.Transparent, darkIcons = userDarkIcons
                     )
-                    systemUiController.setStatusBarColor(if (userDarkIcons) Color.White else DarkPrimary)
-                    systemUiController.setNavigationBarColor(if (userDarkIcons) Color.White else DarkPrimary)
+                    systemUiController.setStatusBarColor(if (userDarkIcons) Color.White else Color.Black)
+                    systemUiController.setNavigationBarColor(if (userDarkIcons) Color.White else Color.Black)
                 }
 
                 val navController = rememberNavController()
@@ -74,12 +74,13 @@ class MainActivity : ComponentActivity() {
                         composable(
                             Routes.chatMessagesPage, arguments = listOf(navArgument("threadId") {
                                 type = NavType.StringType
-                            }, navArgument("user") {})
+                            }, navArgument("user") {}, navArgument("agent") {})
                         ) { backSentry ->
                             ChatMessagePage(
                                 navController = navController,
                                 backSentry.arguments?.getString("threadId")!!,
-                                backSentry.arguments?.getString("user")!!
+                                backSentry.arguments?.getString("user")!!,
+                                backSentry.arguments?.getString("agent")!!
                             )
                         }
                     }

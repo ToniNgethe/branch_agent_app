@@ -81,15 +81,18 @@ fun ChatsPage(
                 if (chatUiState.value.chats.isNotEmpty()) {
                     val chats = chatUiState.value.chats
                     LazyColumn(
-                        verticalArrangement = Arrangement.spacedBy(20.dp),
+                        verticalArrangement = Arrangement.spacedBy(40.dp),
                         contentPadding = PaddingValues(10.dp)
                     ) {
                         items(items = chats, key = { listItem -> listItem.id }) { chat ->
                             ChatsItem(
                                 modifier = modifier, chat
                             ) {
-                                onNavigate.invoke(UiEvent.OnNavigate(
-                                    "chat_messages_page?threadId=${it.threadId.toString()}&&user=${it.userId}"))
+                                onNavigate.invoke(
+                                    UiEvent.OnNavigate(
+                                        "chat_messages_page?threadId=${it.threadId.toString()}&&user=${it.userId}&&agent=${it.agentId}"
+                                    )
+                                )
                             }
                         }
                     }

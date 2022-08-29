@@ -13,8 +13,9 @@ fun MessageEntity.toChat(): Chat = Chat(
     timeStamp = TimeUtils.formatDate(
         timeStamp,
         "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
-        "E ,MMM yyyy HH:mm"
-    ) ,
+        "E ,MMM yyyy HH:mm a"
+    ),
+    oTimeStamp = timeStamp,
     agentId = agentId,
     threadId = threadId
 )

@@ -1,6 +1,5 @@
 package com.branch.feature_chats.presentation.chats
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.branch.core_network.data.ResponseState

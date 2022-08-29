@@ -11,6 +11,9 @@ interface MessagesDao {
     @Insert
     suspend fun insertAll(messages: List<MessageEntity>)
 
+    @Insert
+    suspend fun insert(message: MessageEntity)
+
     @Query("SELECT * FROM messages")
     fun fetchAllMessages(): Flow<List<MessageEntity>>
 
