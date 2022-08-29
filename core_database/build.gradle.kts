@@ -43,9 +43,13 @@ dependencies {
 
     androidTestImplementation(Dependencies.coroutinesTest)
     androidTestImplementation(Dependencies.googleTruth)
+    androidTestImplementation(Dependencies.androidxJunit)
+    androidTestImplementation(Dependencies.expressoCore)
 
     implementation(Dependencies.roomKtx)
     kapt(Dependencies.roomCompiler)
     implementation(Dependencies.roomKRuntime)
     implementation(Dependencies.dataStore)
+
+    implementation( Dependencies.coreTest )
 }
