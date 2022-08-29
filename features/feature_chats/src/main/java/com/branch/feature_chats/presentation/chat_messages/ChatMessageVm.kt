@@ -43,9 +43,8 @@ class ChatMessageVm @Inject constructor(val repository: ChatRepository) : ViewMo
             }
             return
         }
+        _chatMessageUiState.update { it.copy(isLoading = true, success = null) }
         viewModelScope.launch {
-            _chatMessageUiState.update { it.copy(isLoading = true, success = null) }
-
             val response = repository.createMessage(threadId, message, agentId)
             when (response) {
                 is ResponseState.Success -> {
