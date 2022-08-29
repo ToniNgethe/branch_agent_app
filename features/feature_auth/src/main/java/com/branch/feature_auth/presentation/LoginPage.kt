@@ -115,7 +115,7 @@ fun LoginPage(
 
                     Spacer(modifier = Modifier.height(10.dp))
 
-                    var password by rememberSaveable { mutableStateOf("moc.liamg@ehtegnynotna") }
+                    var password by rememberSaveable { mutableStateOf("") }
                     var passwordVisible by rememberSaveable { mutableStateOf(false) }
 
                     Box(modifier = Modifier.padding(start = 30.dp, end = 30.dp)) {
