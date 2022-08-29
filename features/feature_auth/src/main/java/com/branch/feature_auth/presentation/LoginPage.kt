@@ -60,7 +60,9 @@ fun LoginPage(
         }
 
         if (uiState.value.onSuccess != null) {
-            onNavigate.invoke(UiEvent.OnNavigate(Routes.chatsPage))
+            LaunchedEffect(Unit ){
+                onNavigate.invoke(UiEvent.OnNavigate(Routes.chatsPage))
+            }
         }
 
         Scaffold(scaffoldState = scaffoldState, content = {
