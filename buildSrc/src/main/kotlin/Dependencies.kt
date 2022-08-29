@@ -75,4 +75,5 @@ object Dependencies {
     const val googleTruth = "com.google.truth:truth:1.1.3"
     const val mockk = "io.mockk:mockk:1.12.4"
     const val composeUiTestJunit = "androidx.compose.ui:ui-test-junit4:${Versions.compose}"
+    const val turbine = "app.cash.turbine:turbine:0.9.0"
 }

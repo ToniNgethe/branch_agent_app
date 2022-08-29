@@ -39,6 +39,11 @@ android {
     buildFeatures {
         compose = true
     }
+    configurations.all{
+        resolutionStrategy {
+            force("com.squareup.okhttp3:okhttp:4.9.3")
+        }
+    }
 }
 
 dependencies {
@@ -63,5 +68,12 @@ dependencies {
     implementation(project(":core-resources"))
 
     implementation(Dependencies.kotlinSerializationJson)
+    implementation(Dependencies.retrofitKotlinSerialization)
     implementation(Dependencies.retrofit)
+
+    testImplementation(Dependencies.mockWebserver)
+    testImplementation(Dependencies.mockk)
+    testImplementation(Dependencies.googleTruth)
+    testImplementation(Dependencies.coroutinesTest)
+    testImplementation(Dependencies.turbine)
 }

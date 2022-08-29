@@ -29,8 +29,8 @@ class LoginVm @Inject constructor(private val loginRepo: LoginRepo) : ViewModel(
             _loginUiState.update { it.copy(onError = "Password is required") }
             return
         }
+        _loginUiState.update { it.copy(isLoading = true, onError = null) }
         viewModelScope.launch {
-            _loginUiState.update { it.copy(isLoading = true, onError = null) }
             val response = loginRepo.loginUser(userName, password)
             when (response) {
                 is ResponseState.Success -> {
