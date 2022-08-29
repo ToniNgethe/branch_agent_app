@@ -1,7 +1,7 @@
 package com.branch.feature_chats.presentation.chats
 
-import android.util.Log
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -26,11 +26,16 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.branch.core_utils.designs.Ascent
 import com.branch.core_utils.designs.BranchCustomerAppTheme
+import com.branch.core_utils.navigation.Routes
+import com.branch.core_utils.navigation.UiEvent
 import com.branch.feature_chats.domain.models.Chat
-import dagger.hilt.android.lifecycle.HiltViewModel
 
 @Composable
-fun ChatsPage(modifier: Modifier = Modifier, viewModel: ChatVm = hiltViewModel()) {
+fun ChatsPage(
+    modifier: Modifier = Modifier,
+    viewModel: ChatVm = hiltViewModel(),
+    onNavigate: (UiEvent.OnNavigate) -> Unit
+) {
     BranchCustomerAppTheme {
         val chatUiState = viewModel.chatUiState.collectAsState()
         Box {
@@ -64,7 +69,7 @@ fun ChatsPage(modifier: Modifier = Modifier, viewModel: ChatVm = hiltViewModel()
                     }
                 }
 
-                if (chatUiState.value.errorMessage != null) Box(
+                if (chatUiState.value.errorMessage != null && chatUiState.value.chats.isEmpty()) Box(
                     modifier = Modifier
                         .fillMaxWidth()
                         .fillMaxHeight(),
@@ -82,7 +87,10 @@ fun ChatsPage(modifier: Modifier = Modifier, viewModel: ChatVm = hiltViewModel()
                         items(items = chats, key = { listItem -> listItem.id }) { chat ->
                             ChatsItem(
                                 modifier = modifier, chat
-                            )
+                            ) {
+                                onNavigate.invoke(UiEvent.OnNavigate(
+                                    "chat_messages_page?threadId=${it.threadId.toString()}&&user=${it.userId}"))
+                            }
                         }
                     }
                 }
@@ -95,8 +103,8 @@ fun ChatsPage(modifier: Modifier = Modifier, viewModel: ChatVm = hiltViewModel()
 
 
 @Composable
-fun ChatsItem(modifier: Modifier, chat: Chat) {
-    Row {
+fun ChatsItem(modifier: Modifier, chat: Chat, onItemClick: (Chat) -> Unit) {
+    Row(modifier = modifier.clickable { onItemClick.invoke(chat) }) {
         Box(
             contentAlignment = Alignment.Center,
             modifier = Modifier
@@ -143,5 +151,7 @@ fun ChatsItem(modifier: Modifier, chat: Chat) {
 @Preview
 @Composable
 fun PreviewChatPage() {
-    ChatsPage()
+    ChatsPage() {
+
+    }
 }

@@ -8,13 +8,16 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.branch.core_utils.designs.BranchCustomerAppTheme
 import com.branch.core_utils.designs.DarkPrimary
 import com.branch.core_utils.navigation.Routes
 import com.branch.core_utils.navigation.UiEvent
+import com.branch.feature_chats.presentation.chat_messages.ChatMessagePage
 import com.branch.feature_chats.presentation.chats.ChatsPage
 import com.branch.feature_splash.presentation.SplashPage
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
@@ -45,7 +48,9 @@ class MainActivity : ComponentActivity() {
                         composable(Routes.splashPage) {
                             SplashPage { event ->
                                 if (event is UiEvent.OnNavigate) {
-                                    navController.navigate(event.route)
+                                    navController.navigate(event.route) {
+                                        popUpTo(0)
+                                    }
                                 }
                             }
                         }
@@ -53,17 +58,29 @@ class MainActivity : ComponentActivity() {
                         composable(Routes.authPage) {
                             LoginPage { event ->
                                 if (event is UiEvent.OnNavigate) {
-                                    navController.navigate(event.route)
+                                    navController.navigate(event.route) {
+                                        popUpTo(0)
+                                    }
                                 }
                             }
                         }
 
                         composable(Routes.chatsPage) {
-                            ChatsPage()
+                            ChatsPage { event ->
+                                navController.navigate(event.route)
+                            }
                         }
 
-                        composable(Routes.chatMessagesPage) {
-                            ChatMessagePage()
+                        composable(
+                            Routes.chatMessagesPage, arguments = listOf(navArgument("threadId") {
+                                type = NavType.StringType
+                            }, navArgument("user") {})
+                        ) { backSentry ->
+                            ChatMessagePage(
+                                navController = navController,
+                                backSentry.arguments?.getString("threadId")!!,
+                                backSentry.arguments?.getString("user")!!
+                            )
                         }
                     }
                 }

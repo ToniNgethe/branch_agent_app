@@ -14,6 +14,9 @@ interface MessagesDao {
     @Query("SELECT * FROM messages")
     fun fetchAllMessages(): Flow<List<MessageEntity>>
 
+    @Query("SELECT * FROM messages WHERE threadId=:threadId")
+    fun getMessagesByThread(threadId: String): Flow<List<MessageEntity>>
+
     @Query("DELETE FROM messages")
     suspend fun deleteAllMessages()
 }
