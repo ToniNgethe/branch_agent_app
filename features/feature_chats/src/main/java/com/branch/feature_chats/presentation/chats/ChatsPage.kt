@@ -26,7 +26,6 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.branch.core_utils.designs.Ascent
 import com.branch.core_utils.designs.BranchCustomerAppTheme
-import com.branch.core_utils.navigation.Routes
 import com.branch.core_utils.navigation.UiEvent
 import com.branch.feature_chats.domain.models.Chat
 
@@ -36,8 +35,8 @@ fun ChatsPage(
     viewModel: ChatVm = hiltViewModel(),
     onNavigate: (UiEvent.OnNavigate) -> Unit
 ) {
+    val chatUiState = viewModel.chatUiState.collectAsState()
     BranchCustomerAppTheme {
-        val chatUiState = viewModel.chatUiState.collectAsState()
         Box {
             Column(
                 modifier = Modifier
